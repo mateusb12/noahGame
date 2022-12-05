@@ -153,7 +153,6 @@ public class Golpeador : MonoBehaviour
 
         if (wallcol2.wallcol == true)
         {
-            Debug.Log("FOIIIIII");
             walkPointSet = false;
             wallcol2.wallcol = false;
         }
