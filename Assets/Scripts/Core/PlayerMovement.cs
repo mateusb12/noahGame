@@ -9,15 +9,18 @@ namespace Core
         public KeyCode downKey = KeyCode.S;
         public KeyCode leftKey = KeyCode.A;
         public KeyCode rightKey = KeyCode.D;
+        public float turnCap = 3f;
         [SerializeField] private GameObject thisGuyHips;
         [SerializeField] private Rigidbody handRig;
         
+        private float _moveForce = 5f;
+        private const float MoveFriction = 0.1f;
+
         private Animator _animatorComponent;
         private CapsuleCollider _mainColliderComponent;
         private Transform _characterTransform;
         private Rigidbody _rigidBodyComponent;
-
-
+        
         private float _inX;
         private float _inZ;
         private Vector3 _verticalMovement;
@@ -31,6 +34,10 @@ namespace Core
         private static readonly int Run2 = Animator.StringToHash("run2");
         private static readonly int Bool1 = Animator.StringToHash("bool1");
         private static readonly int Bool2 = Animator.StringToHash("bool2");
+        private static readonly int Lbool = Animator.StringToHash("lbool");
+        private static readonly int Lbool2 = Animator.StringToHash("lbool2");
+        private static readonly int Rbool = Animator.StringToHash("rbool");
+        private static readonly int Rbool2 = Animator.StringToHash("rbool2");
 
         private void Awake()
         {
@@ -98,32 +105,76 @@ namespace Core
             _animatorComponent.SetBool(Run2, true);
         }
 
-        private void EnableWalkingAnimation()
+        private void EnableForwardWalkingAnimation()
         {
             _animatorComponent.SetBool(Bool1, true);
             _animatorComponent.SetBool(Bool2, true);
         }
 
-        private void DisableWalkingAnimation()
+        private void DisableForwardWalkingAnimation()
         {
             _animatorComponent.SetBool(Bool1, false);
             _animatorComponent.SetBool(Bool2, false);
+        }
+
+        private void EnableLeftWalkingAnimation()
+        {
+            _animatorComponent.SetBool(Lbool, true);
+            _animatorComponent.SetBool(Lbool2, false);
+        }
+
+        private void DisableLeftWalkingAnimation()
+        {
+            _animatorComponent.SetBool(Lbool, false);
+            _animatorComponent.SetBool(Lbool2, true);
+        }
+
+        private void EnableRightWalkingAnimation()
+        {
+            _animatorComponent.SetBool(Rbool, true);
+            _animatorComponent.SetBool(Rbool2, false);
+        }
+
+        private void DisableRightWalkingAnimation()
+        {
+            _animatorComponent.SetBool(Rbool, false);
+            _animatorComponent.SetBool(Rbool2, true);
         }
 
         private void WalkingMechanics()
         {
             if (Input.GetKeyDown(upKey))
             {
-                EnableWalkingAnimation();
-                var moveForce = 5f;
-                _rigidBodyComponent.AddForce(transform.forward * moveForce);
+                EnableForwardWalkingAnimation();
+                _rigidBodyComponent.AddForce(transform.forward * _moveForce);
             }
+            if (Input.GetKeyUp(upKey))
+            {
+                DisableForwardWalkingAnimation();
+                _moveForce -= MoveFriction;
+                _rigidBodyComponent.AddForce(transform.forward * _moveForce);
+            }
+            if (Input.GetKey(leftKey))
+            {
+                _rigidBodyComponent.freezeRotation = false;
+                transform.Rotate(Vector3.up, -turnCap);
+            }
+            if (Input.GetKey(rightKey))
+            {
+                _rigidBodyComponent.freezeRotation = false;
+                transform.Rotate(Vector3.up, turnCap);
+            }
+            if (Input.GetKeyUp(leftKey) || Input.GetKeyUp(rightKey))
+            {
+                _rigidBodyComponent.freezeRotation = true;
+            }
+
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-        
+            WalkingMechanics();
         }
     }
 }
