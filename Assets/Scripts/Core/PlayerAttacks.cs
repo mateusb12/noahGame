@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core
 {
@@ -8,6 +10,8 @@ namespace Core
         public KeyCode punchKey = KeyCode.P;
         public KeyCode kickKey = KeyCode.K;
         public KeyCode shootKey = KeyCode.J;
+        [SerializeField] private Transform bulletPoint;
+        [SerializeField] private GameObject bulletGameObject;
         private Animator _animatorComponent;
         private Quaternion _initialRotation;
         private static readonly int Punch = Animator.StringToHash("punch");
@@ -84,11 +88,20 @@ namespace Core
             if(Input.GetKeyDown(shootKey))
             {
                 EnableShootingAnimation();
+                Invoke("SpawnBullet", 0.3f);
             }
             else if (Input.GetKeyUp(shootKey))
             {
                 DisableShootingAnimation();
             }
+        }
+
+        private void SpawnBullet()
+        {
+            var bullet = Instantiate(bulletGameObject, bulletPoint.position, Quaternion.identity);
+            var bulletRigidBodyComponent = bullet.GetComponent<Rigidbody>();
+            bulletRigidBodyComponent.AddForce(transform.forward * 4f, ForceMode.Impulse);
+            bulletRigidBodyComponent.AddForce(transform.up * -0.1f, ForceMode.Impulse);
         }
 
         private void Update()
