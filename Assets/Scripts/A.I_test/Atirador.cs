@@ -71,6 +71,8 @@ public class Atirador : MonoBehaviour
             Destroy(esse,1.5f);
             gatesref.destroyGate++;
             ragscript.AtiradorragOn = true;
+            ragscript.RagdollModeOn2();
+
         }
     }
 

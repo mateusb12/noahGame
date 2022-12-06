@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 public class CharacScript : MonoBehaviour
 {
     [SerializeField] private Animator animatorComponent;
+    [SerializeField] GameObject cage;
     private Transform _characterTransform;
     private Rigidbody _characterRigidbody;
     
@@ -112,14 +113,14 @@ public class CharacScript : MonoBehaviour
         feet.tag = "Untagged";
     }
 
-    private void MaoEnable()
+    public void MaoEnable()
     {
         hand.tag = "Golpe";
         handCollider.enabled = true;
       
     }
 
-    private void MaoDisable()
+    public void MaoDisable()
     {
         hand.tag = "Untagged";
         handCollider.enabled = false;
@@ -281,7 +282,10 @@ public class CharacScript : MonoBehaviour
             punchTime = punchTime - 2f;
             //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
         }
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Destroy(cage);
+        }
         if (Input.GetKeyUp(punchKey))
         {
             animatorComponent.SetBool("punch", false);

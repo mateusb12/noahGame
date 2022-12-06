@@ -6,7 +6,7 @@ namespace Combat
 {
     public class Health : MonoBehaviour
     {
-        [SerializeField] private float maxHp = 100f;
+        [SerializeField] private float maxHp = 40f;
         public float currentHp;
         [Serializable]
         public class TakeDamageEvent : UnityEvent<float>

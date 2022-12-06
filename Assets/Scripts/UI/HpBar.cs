@@ -64,7 +64,7 @@ namespace UI
         private float GetHpRatio()
         {
             hpRatio = _healthComponent.GetPercentage();
-            if (hpRatio <= 0)
+            if (hpRatio <= -10)
             {
                 Destroy(gameObject);
             }
