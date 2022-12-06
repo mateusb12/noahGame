@@ -191,6 +191,7 @@ public class Golpeador : MonoBehaviour
        // armarig.isKinematic = false;
         // transform.LookAt(player);
     }
+    
     private void AttackPlayer()
     {
  
@@ -205,8 +206,6 @@ public class Golpeador : MonoBehaviour
             Rigidbody rb = Instantiate(Projectil, bulletpoint.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
             rb.AddForce(transform.up * -0.5f, ForceMode.Impulse);
-
-
             alreadyattacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }

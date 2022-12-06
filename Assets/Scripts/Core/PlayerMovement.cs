@@ -74,7 +74,7 @@ namespace Core
             _animatorComponent.enabled = true;
             _mainColliderComponent.enabled = true;
             GetComponent<Rigidbody>().isKinematic = false;
-            handRig.isKinematic = false;
+            // handRig.isKinematic = false;
         }
 
         private void EnableRagdoll()
