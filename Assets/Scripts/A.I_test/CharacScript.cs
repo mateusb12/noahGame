@@ -8,6 +8,15 @@ public class CharacScript : MonoBehaviour
     [SerializeField] private Animator animatorComponent;
     private Transform _characterTransform;
     private Rigidbody _characterRigidbody;
+    
+    public KeyCode upKey = KeyCode.W;
+    public KeyCode downKey = KeyCode.S;
+    public KeyCode leftKey = KeyCode.A;
+    public KeyCode rightKey = KeyCode.D;
+    public KeyCode runKey = KeyCode.LeftShift;
+    public KeyCode punchKey = KeyCode.P;
+    public KeyCode kickKey = KeyCode.K;
+    public KeyCode shootKey = KeyCode.J;
 
     public float inX;
     public float inZ;
@@ -179,7 +188,7 @@ public class CharacScript : MonoBehaviour
             RagdollOn();
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(downKey))
         {
             SwordEnable();
             handCollider.enabled = true;
@@ -195,7 +204,7 @@ public class CharacScript : MonoBehaviour
         Maist();
 
         //CORRER
-        if (Input.GetKey(KeyCode.M))
+        if (Input.GetKey(runKey))
         {
             animatorComponent.SetBool("run", true);
             animatorComponent.SetBool("run2", false);
@@ -204,18 +213,18 @@ public class CharacScript : MonoBehaviour
 
             // Debug.Log("colon");
         }
-        if (Input.GetKeyUp(KeyCode.M))
+        if (Input.GetKeyUp(runKey))
         {
             animatorComponent.SetBool("run", false);
             animatorComponent.SetBool("run2", true);
 
         }
         //CHUTE
-        if (Input.GetKey(KeyCode.K))
+        if (Input.GetKey(kickKey))
         {
            // inX = inX * 100;
         }
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(kickKey))
         {
             kickTime = 100;
             animatorComponent.SetBool("run", false);
@@ -230,7 +239,7 @@ public class CharacScript : MonoBehaviour
             //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
         }
 
-        if (Input.GetKeyUp(KeyCode.K))
+        if (Input.GetKeyUp(kickKey))
         {
             animatorComponent.SetBool("kick", false);
         }
@@ -251,7 +260,7 @@ public class CharacScript : MonoBehaviour
         }
 
         //PUNCH
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(punchKey))
         {
             punchTime = 100;
             animatorComponent.SetBool("run", false);
@@ -269,7 +278,7 @@ public class CharacScript : MonoBehaviour
             //isso aq ta so no getkey ai se o cara pressionar nunca vai descer
         }
 
-        if (Input.GetKeyUp(KeyCode.H))
+        if (Input.GetKeyUp(punchKey))
         {
             animatorComponent.SetBool("punch", false);
 
@@ -294,7 +303,7 @@ public class CharacScript : MonoBehaviour
         }
 
         //WALK
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(upKey))
         {
             animatorComponent.SetBool("bool1", true);
             animatorComponent.SetBool("bool2", true);
@@ -302,14 +311,14 @@ public class CharacScript : MonoBehaviour
            // tempo = 0;
         }
 
-        if (Input.GetKeyUp(KeyCode.UpArrow)) 
+        if (Input.GetKeyUp(upKey)) 
         {
 
             animatorComponent.SetBool("bool1", false);
             animatorComponent.SetBool("bool2", false);
             _tempo = 0;
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(leftKey))
         {
             animatorComponent.SetBool("lbool", true);
             animatorComponent.SetBool("lbool2", false);
@@ -320,7 +329,7 @@ public class CharacScript : MonoBehaviour
             animatorComponent.SetBool("lbool", false);
             animatorComponent.SetBool("lbool2", true);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(rightKey))
         {
             animatorComponent.SetBool("rbool", true);
             animatorComponent.SetBool("rbool2", false);
@@ -338,21 +347,21 @@ public class CharacScript : MonoBehaviour
         }
 
         //AGACHAR
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(downKey))
         {
             animatorComponent.SetBool("Agacha", true);
             // Maincollider.enabled = false;
             mainCollider.height = 6;
             mainCollider.center = new Vector3(0, 3, 0);
         }
-        if (Input.GetKeyUp(KeyCode.DownArrow))
+        if (Input.GetKeyUp(downKey))
         {
             animatorComponent.SetBool("Agacha", false);
            // Maincollider.enabled = true;
             mainCollider.height = 13;
             mainCollider.center = new Vector3(0, 7, 0);
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(downKey))
         {
            // inX = inX * 100;
         }
@@ -362,7 +371,7 @@ public class CharacScript : MonoBehaviour
         }
 
         //ATIRAR
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(shootKey))
         {
             animatorComponent.SetBool("run", false);
             animatorComponent.SetBool("run2", true);
@@ -373,12 +382,12 @@ public class CharacScript : MonoBehaviour
             Invoke("Atira", 0.3f);
         }
 
-        if (Input.GetKeyUp(KeyCode.J))
+        if (Input.GetKeyUp(shootKey))
         {
             animatorComponent.SetBool("shoot", false);
 
         }
-        if (Input.GetKey(KeyCode.J))
+        if (Input.GetKey(shootKey))
         {
                // inX = inX * 100;     
         }
