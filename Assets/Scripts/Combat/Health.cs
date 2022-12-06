@@ -32,12 +32,13 @@ namespace Combat
             if (currentHp == 0)
             {
                 Die();
+                takeDamage.Invoke(damage);
                 // AwardExperience(instigator);
             }
-            // else
-            // {
-            //     takeDamage.Invoke(damage);
-            // }
+            else
+            {
+                
+            }
         }
 
         private float GetHp()
@@ -59,6 +60,11 @@ namespace Combat
                 return;
             }
             dead = true;
+        }
+
+        public bool IsDead()
+        {
+            return dead;
         }
 
         // Update is called once per frame

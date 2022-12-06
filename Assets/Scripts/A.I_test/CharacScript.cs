@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Combat;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -27,6 +29,8 @@ public class CharacScript : MonoBehaviour
     public float moveSpeed;
     private int _tempo;
 
+    private Health _healthComponent;
+
     [SerializeField] private float forceMagnitude;
     
     [FormerlySerializedAs("maincollider")] [FormerlySerializedAs("Maincollider")] [SerializeField] public CapsuleCollider mainCollider;
@@ -49,6 +53,11 @@ public class CharacScript : MonoBehaviour
     private Transform bulletPoint;
 
     private float _hits = 0;
+
+    private void Awake()
+    {
+        _healthComponent = GetComponent<Health>();
+    }
 
     private void Start()
     {
@@ -144,7 +153,6 @@ public class CharacScript : MonoBehaviour
     }
        private void OnCollisionEnter(Collision collision)
     {
-
         if (collision.gameObject.name == "Rosto_AI")
         {
             RagdollOn();
@@ -155,11 +163,12 @@ public class CharacScript : MonoBehaviour
         {
             MaoDisable();
             PeDisable();
-            _hits++;
+            // _hits++;
             animatorComponent.SetBool("hit", true);
             Invoke("Hitfalse", 0.2f);
-           // Instantiate(ps, characPosition, characRotation);
-           // Debug.Log("pow");
+            _healthComponent.TakeDamage(gameObject, 10f);
+            // Instantiate(ps, characPosition, characRotation);
+            // Debug.Log("pow");
         }
         else
         {
@@ -183,12 +192,7 @@ public class CharacScript : MonoBehaviour
     {
        // maocollider.enabled = true;
 
-        if (_hits > 4)
-        {
-            RagdollOn();
-        }
-
-        if (Input.GetKey(downKey))
+       if (Input.GetKey(downKey))
         {
             SwordEnable();
             handCollider.enabled = true;
@@ -398,6 +402,14 @@ public class CharacScript : MonoBehaviour
             inX = 100;
         }
 
+    }
+
+    public void DeathMechanics()
+    {
+        if (_healthComponent.IsDead())
+        {
+            RagdollOn();
+        }
     }
 
     private void Atira()

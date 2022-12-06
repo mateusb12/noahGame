@@ -203,6 +203,10 @@ public class Golpeador : MonoBehaviour
 
         if (!alreadyattacked)
         {
+            if (bulletpoint == null)
+            {
+                return;
+            }
             Rigidbody rb = Instantiate(Projectil, bulletpoint.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
             rb.AddForce(transform.up * -0.5f, ForceMode.Impulse);
