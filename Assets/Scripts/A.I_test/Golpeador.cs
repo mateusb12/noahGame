@@ -40,6 +40,9 @@ public class Golpeador : MonoBehaviour
 
     FreetheGates gatesref;
     [SerializeField] GameObject gates;
+
+    RagdollEvil ragref;
+    //[SerializeField] GameObject rag;
     private void Awake()
     {
         _healthComponent = GetComponent<Health>();
@@ -50,6 +53,7 @@ public class Golpeador : MonoBehaviour
 
         wallcol2 = golpeador.GetComponent<WallCollision>();
         gatesref = gates.GetComponent<FreetheGates>();
+        ragref = golpeador.GetComponent<RagdollEvil>();
     }
 
     private void Update()
@@ -105,13 +109,14 @@ public class Golpeador : MonoBehaviour
             if (_healthComponent.IsDead())
             {
                 DeathMechanics();
+                ragref.RagdollModeOn2();
             }
             else
             {
                 _healthComponent.TakeDamage(gameObject, 10f);
-                Invoke("recover", 0.4f);
+               // Invoke("recover", 0.4f);
             }
-
+            Invoke("recover", 0.4f);
         }
     }
 

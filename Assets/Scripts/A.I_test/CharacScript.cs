@@ -112,14 +112,14 @@ public class CharacScript : MonoBehaviour
         feet.tag = "Untagged";
     }
 
-    private void MaoEnable()
+    public void MaoEnable()
     {
         hand.tag = "Golpe";
         handCollider.enabled = true;
       
     }
 
-    private void MaoDisable()
+    public void MaoDisable()
     {
         hand.tag = "Untagged";
         handCollider.enabled = false;

@@ -90682,16 +90682,16 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.81666666
-    functionName: maoEnable
+    functionName: MaoEnable
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: 4483b49d432a8a449a30e92e509bdab8, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2.0833333
-    functionName: maoDisable
+    functionName: MaoDisable
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: 4483b49d432a8a449a30e92e509bdab8, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

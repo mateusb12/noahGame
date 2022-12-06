@@ -77,7 +77,7 @@ public class RagdollEvil : MonoBehaviour
         ragDollColliders2 = ThisGuysRig2.GetComponentsInChildren<Collider>();
         limbsRigidbodies2 = ThisGuysRig2.GetComponents<Rigidbody>();
     }
-    void RagdollModeOn2()
+    public void RagdollModeOn2()
     {
         tempo = 0;
         active = true;
