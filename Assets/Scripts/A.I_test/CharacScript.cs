@@ -112,7 +112,6 @@ public class CharacScript : MonoBehaviour
     {
         handCollider.center = new Vector3(-2.5f, 0, 0);
         handCollider.size = new Vector3(6, 0.5f, 1);
-
         sword.SetActive(true);
     }
 
