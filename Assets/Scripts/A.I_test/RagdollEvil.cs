@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Combat;
 using UnityEngine;
 
 public class RagdollEvil : MonoBehaviour
@@ -9,6 +10,7 @@ public class RagdollEvil : MonoBehaviour
     [SerializeField] private GameObject ThisGuysRig2;
     [SerializeField] private Animator ThisGuysAnimator2;
     [SerializeField] GameObject rosto;
+    private Health _healthComponent;
     public float tempo = 1;
     public bool active = false;
     public bool AtiradorragOn = false;
@@ -16,6 +18,7 @@ public class RagdollEvil : MonoBehaviour
 
     void Start()
     {
+        _healthComponent = GetComponent<Health>();
         GetRagdollBits2();
         RagdollModeOff2();
     }
@@ -23,7 +26,7 @@ public class RagdollEvil : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hits > 3)
+        if (hits > 300)
         {
             RagdollModeOn2();
         }
@@ -60,6 +63,7 @@ public class RagdollEvil : MonoBehaviour
           //  {
                // Debug.Log("collide");
                 hits++;
+                _healthComponent.TakeDamage(gameObject, 10f);
                 ThisGuysAnimator2.SetBool("defeat", true);
                 Invoke("recover", 0.2f);
             // RagdollModeOn2();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Combat;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,6 +19,8 @@ public class Golpeador : MonoBehaviour
     public Collision collision3;
 
     public LayerMask whatIsGround, whatIsPlayer;
+
+    private Health _healthComponent;
 
     public Vector3 walkpoint;
     public bool walkPointSet;
@@ -39,6 +42,7 @@ public class Golpeador : MonoBehaviour
     [SerializeField] GameObject gates;
     private void Awake()
     {
+        _healthComponent = GetComponent<Health>();
         player = GameObject.Find("Noah").transform;
         agent = GetComponent<NavMeshAgent>();
 
@@ -88,7 +92,6 @@ public class Golpeador : MonoBehaviour
     {
         if (collision.gameObject.tag == "Golpe")
         {
-
             arm.tag = "Untagged";
             aramableOff();
             Ani.SetBool("shooting2", false);
@@ -99,21 +102,27 @@ public class Golpeador : MonoBehaviour
             Ani.SetBool("shooting2", false);
 
 
-            if (hits > 3)
+            if (_healthComponent.IsDead())
             {
-                aramableOff();
-                arm.tag = "Untagged";
-                Invoke("Ps", 1.3f);
-                Destroy(esse, 1.5f);
-                armable = false;
-                arma.enabled = false;
+                DeathMechanics();
             }
             else
             {
+                _healthComponent.TakeDamage(gameObject, 10f);
                 Invoke("recover", 0.4f);
             }
 
         }
+    }
+
+    private void DeathMechanics()
+    {
+        aramableOff();
+        arm.tag = "Untagged";
+        Invoke("Ps", 1.3f);
+        Destroy(esse, 1.5f);
+        armable = false;
+        arma.enabled = false;
     }
 
     void hitanimfalse()

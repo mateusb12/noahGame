@@ -1,5 +1,6 @@
 ﻿using Combat;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI
 {
@@ -7,24 +8,45 @@ namespace UI
     {
         [SerializeField] private Color colorFull;
         [SerializeField] private Color colorLow;
+        [SerializeField] private GameObject healthScriptOwner;
+        private Health _healthComponent;
         private GameObject _player;
         public Color _currentColor;
         public float hpRatio;
-        private Health _healthComponent;
         private Material _currentMaterial;
+        private bool _isPlayer;
         private float _initialBarSize;
         private static readonly int Color1 = Shader.PropertyToID("_Color");
         private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
 
         private void Awake()
         {
-            _player = GameObject.FindWithTag("Player");
-            _healthComponent = _player.GetComponent<Health>();
+            _isPlayer = HasPlayerTag();
+            _healthComponent = healthScriptOwner.GetComponent<Health>();
             _currentMaterial = GetComponent<Renderer>().material;
             _initialBarSize = transform.localScale.x;
             _currentMaterial.SetColor(EmissionColor, colorFull);
             // var currentMaterialEmissionColorIntensity = _currentMaterial.GetColor(EmissionColor).grayscale;
             // Debug.Log(currentMaterialEmissionColorIntensity);
+        }
+
+        private bool HasPlayerTag() {
+            // Get all objects in the current hierarchy
+            var allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+
+            // Loop through the objects and return true if one of them has the "Player" tag
+            var index = 0;
+            for (; index < allObjects.Length; index++)
+            {
+                var obj = allObjects[index];
+                if (obj.CompareTag("Player"))
+                {
+                    return true;
+                }
+            }
+
+            // If none of the objects have the "Player" tag, return false
+            return false;
         }
         
         // Update is called once per frame
