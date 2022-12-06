@@ -34,15 +34,15 @@ public class RagdollEvil : MonoBehaviour
         {
             timer();
         }
-        if (tempo > 150)
-        {
-            RagdollModeOff2();
-            active = false;
-        }
-        if(AtiradorragOn == true)
-        {
-            RagdollModeOn2();
-        }
+        // if (tempo > 150)
+        // {
+        //     RagdollModeOff2();
+        //     active = false;
+        // }
+        // if(AtiradorragOn == true)
+        // {
+        //     RagdollModeOn2();
+        // }
     }
 
     void timer()

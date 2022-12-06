@@ -8,7 +8,6 @@ namespace UI
     {
         [SerializeField] private Color colorFull;
         [SerializeField] private Color colorLow;
-        [SerializeField] private GameObject healthScriptOwner;
         private Health _healthComponent;
         private GameObject _player;
         public Color _currentColor;
@@ -22,7 +21,7 @@ namespace UI
         private void Awake()
         {
             _isPlayer = HasPlayerTag();
-            _healthComponent = healthScriptOwner.GetComponent<Health>();
+            _healthComponent = transform.parent.GetComponent<Health>();
             _currentMaterial = GetComponent<Renderer>().material;
             _initialBarSize = transform.localScale.x;
             _currentMaterial.SetColor(EmissionColor, colorFull);
@@ -65,6 +64,10 @@ namespace UI
         private float GetHpRatio()
         {
             hpRatio = _healthComponent.GetPercentage();
+            if (hpRatio <= 0)
+            {
+                Destroy(gameObject);
+            }
             return hpRatio;
         }
 
