@@ -383,7 +383,7 @@ public class CharacScript : MonoBehaviour
             animatorComponent.SetBool("bool1", false);
             animatorComponent.SetBool("bool2", false);
 
-            Invoke("Atira", 0.3f);
+            Invoke("Atira", 0.5f);
         }
 
         if (Input.GetKeyUp(shootKey))
